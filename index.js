@@ -6,6 +6,8 @@ const session = require('express-session');
 const flash = require('connect-flash');
 const passport = require('./config/passportConfig'); // Configuración de Passport
 const Handlebars = require("./lib/handlebars");
+const axios = require('axios');
+const cron = require('node-cron');
 
 require('dotenv').config();
 
@@ -124,6 +126,16 @@ app.use('/api/v1', apiRoutes);
 // Manejo de errores 404
 app.use((req, res) => {
   res.status(404).render('errors/404', { title: '404 - Página no encontrada' });
+});
+
+// Configuración de cron para mantener activo el servidor con una auto-petición cada 10 minutos
+cron.schedule('*/10 * * * *', async () => {
+  try {
+      await axios.get('https://airlink-solutions-services.onrender.com'); // Asegúrate de que esta URL sea la de tu servidor en Render
+      console.log('Auto-petición enviada para mantener el servidor activo.');
+  } catch (error) {
+      console.error('Error al intentar mantener el servidor activo:', error.message);
+  }
 });
 
 // Iniciar el servidor
