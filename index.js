@@ -131,7 +131,7 @@ app.use((req, res) => {
 // Configuración de cron para mantener activo el servidor con una auto-petición cada 10 minutos
 cron.schedule('*/10 * * * *', async () => {
   try {
-      await axios.get('https://airlink-solutions-services.onrender.com'); // Asegúrate de que esta URL sea la de tu servidor en Render
+      await axios.get('https://airlink-solutions-services.onrender.com/login'); // Asegúrate de que esta URL sea la de tu servidor en Render
       console.log('Auto-petición enviada para mantener el servidor activo.');
   } catch (error) {
       console.error('Error al intentar mantener el servidor activo:', error.message);
