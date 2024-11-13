@@ -1,0 +1,42 @@
+{{#> layouts/main }}
+<div class="bg-gray-100 min-h-screen flex items-center justify-center px-4">
+  <div class="bg-white shadow-lg rounded-lg w-full max-w-lg p-8">
+    <h1 class="text-3xl font-bold text-center text-blue-600 mb-6">Agregar Nuevo Servicio</h1>
+    
+    <form action="/servicios" method="POST" class="space-y-6">
+      <!-- Nombre del Servicio -->
+      <div>
+        <label for="nombre" class="block text-sm font-medium text-gray-700">Nombre del Servicio</label>
+        <input 
+          type="text" 
+          id="nombre" 
+          name="nombre" 
+          required 
+          class="w-full mt-2 px-4 py-2 border rounded-md focus:ring-2 focus:ring-blue-500 focus:outline-none text-gray-900"
+          placeholder="Ingresa el nombre del servicio">
+      </div>
+
+      <!-- Descripción del Servicio -->
+      <div>
+        <label for="descripcion" class="block text-sm font-medium text-gray-700">Descripción</label>
+        <textarea 
+          id="descripcion" 
+          name="descripcion" 
+          rows="5" 
+          required 
+          class="w-full mt-2 px-4 py-2 border rounded-md focus:ring-2 focus:ring-blue-500 focus:outline-none text-gray-900"
+          placeholder="Ingresa una descripción detallada del servicio"></textarea>
+      </div>
+
+      <!-- Botón Guardar -->
+      <div class="text-center">
+        <button 
+          type="submit" 
+          class="bg-blue-600 text-white px-6 py-2 rounded-lg shadow-md hover:bg-blue-700 transition duration-300">
+          Guardar Servicio
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+{{/layouts/main }}

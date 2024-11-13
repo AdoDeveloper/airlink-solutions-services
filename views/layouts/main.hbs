@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{title}}</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    <script>
+      // Script para el interruptor de modo oscuro
+      function toggleTheme() {
+        const html = document.documentElement;
+        html.classList.toggle('dark');
+        localStorage.setItem('theme', html.classList.contains('dark') ? 'dark' : 'light');
+      }
+
+      // Aplicar el tema almacenado
+      document.addEventListener('DOMContentLoaded', () => {
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme === 'dark') {
+          document.documentElement.classList.add('dark');
+        }
+      });
+    </script>
+  </head>
+  <body class="bg-gray-100 text-gray-900 font-sans dark:bg-gray-900 dark:text-gray-200 flex flex-col min-h-screen">
+    <!-- Header -->
+    <header class="bg-blue-600 text-white dark:bg-gray-800 dark:text-gray-200 py-4 fixed w-full top-0 z-50 shadow-md">
+      {{>navbar}}
+    </header>
+
+    <!-- Main Content -->
+    <main class="container mx-auto flex-grow mt-16">
+      {{{body}}}
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white dark:bg-gray-800 dark:text-gray-200 py-6">
+      {{>footer}}
+    </footer>
+  </body>
+</html>

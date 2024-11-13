@@ -1,0 +1,84 @@
+{{#> layouts/main }}
+<div class="bg-gray-100 min-h-screen">
+  <!-- Encabezado -->
+  <div class="bg-blue-600 text-white py-8">
+    <div class="max-w-6xl mx-auto text-center">
+      <h1 class="text-4xl font-extrabold">Lista de Servicios</h1>
+      <p class="mt-2 text-lg">Gestiona los servicios ofrecidos por Airlink Solutions</p>
+      <div class="mt-6">
+        <a href="/servicios/nuevo" 
+           class="inline-block bg-white text-blue-600 font-semibold px-6 py-3 rounded-lg shadow-md hover:bg-gray-100 transition duration-300">
+          + Agregar Nuevo Servicio
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Contenido Principal -->
+  <div class="max-w-6xl mx-auto py-10">
+    <!-- Grid de Servicios -->
+    <div class="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+      {{#each servicios}}
+      <div class="bg-white shadow-lg rounded-lg overflow-hidden flex flex-col">
+        <!-- Encabezado del Servicio -->
+        <div class="p-6 flex-grow">
+          <h2 class="text-xl font-bold text-gray-800">{{this.nombre}}</h2>
+          <p class="text-gray-600 mt-2 text-sm">{{this.descripcion}}</p>
+        </div>
+
+        <!-- Acciones -->
+        <div class="bg-gray-50 p-4 flex justify-between items-center border-t">
+          <a href="/servicios/{{this.id}}" 
+             class="text-blue-600 font-semibold hover:underline">Ver Detalle</a>
+          <div class="flex space-x-2">
+            <a href="/servicios/editar/{{this.id}}" 
+               class="bg-green-500 text-white px-4 py-2 rounded-md hover:bg-green-600 transition duration-300">
+              Editar
+            </a>
+            <form action="/servicios/eliminar/{{this.id}}" method="POST" class="delete-form" data-id="{{this.id}}" data-nombre="{{this.nombre}}">
+              <button type="button" 
+                      class="bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-600 transition duration-300 delete-btn">
+                Eliminar
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+      {{/each}}
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+  // Interceptar clic en los botones de eliminación
+  document.addEventListener('DOMContentLoaded', () => {
+    const deleteButtons = document.querySelectorAll('.delete-btn');
+
+    deleteButtons.forEach(button => {
+      button.addEventListener('click', (e) => {
+        e.preventDefault();
+
+        const form = button.closest('.delete-form');
+        const serviceName = form.dataset.nombre; // Obtener el nombre del servicio
+
+        // Mostrar SweetAlert
+        Swal.fire({
+          title: '¿Estás seguro?',
+          text: `Estás a punto de eliminar el servicio "${serviceName}". Esta acción no se puede deshacer.`,
+          icon: 'warning',
+          showCancelButton: true,
+          confirmButtonColor: '#d33',
+          cancelButtonColor: '#3085d6',
+          confirmButtonText: 'Sí, eliminar',
+          cancelButtonText: 'Cancelar'
+        }).then((result) => {
+          if (result.isConfirmed) {
+            form.submit(); // Enviar el formulario si se confirma
+          }
+        });
+      });
+    });
+  });
+</script>
+{{/layouts/main }}

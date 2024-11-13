@@ -1,0 +1,19 @@
+{{#> layouts/main }}
+<div class="bg-gray-100 min-h-screen flex items-center justify-center px-4">
+  <div class="bg-white shadow-lg rounded-lg w-full max-w-2xl p-8">
+    <!-- Título del Servicio -->
+    <h1 class="text-3xl font-bold text-blue-600 mb-4 text-center">{{servicio.nombre}}</h1>
+
+    <!-- Descripción del Servicio -->
+    <p class="text-gray-700 text-lg leading-relaxed mb-6 text-justify">{{servicio.descripcion}}</p>
+
+    <!-- Botón Volver -->
+    <div class="text-center">
+      <a href="/servicios" 
+         class="inline-block bg-blue-600 text-white px-6 py-2 rounded-lg shadow-md hover:bg-blue-700 transition duration-300">
+        Volver a la Lista
+      </a>
+    </div>
+  </div>
+</div>
+{{/layouts/main }}
