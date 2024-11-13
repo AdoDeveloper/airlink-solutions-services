@@ -122,6 +122,10 @@ const servicioRoutes = require('./routes/servicioRoutes');
 const apiRoutes = require('./routes/apiRoutes');
 app.use('/', servicioRoutes);
 app.use('/api/v1', apiRoutes);
+// Configurar la documentación de Swagger en una ruta
+const docapiRoutes = require('./routes/docapiRoutes');
+// Ruta para la documentación de Swagger
+app.use('/api-docs', docapiRoutes);
 
 // Manejo de errores 404
 app.use((req, res) => {
