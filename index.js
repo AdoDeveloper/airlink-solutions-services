@@ -4,7 +4,8 @@ const path = require('path');
 const cors = require('cors');
 const session = require('express-session');
 const flash = require('connect-flash');
-const passport = require('./config/passportConfig'); // Configuración de Passport
+const { passport, sessionMiddleware } = require('./config/sessionConfig');
+
 const Handlebars = require("./lib/handlebars");
 const axios = require('axios');
 const cron = require('node-cron');
@@ -116,7 +117,7 @@ app.use((req, res, next) => {
 // Rutas de autenticación
 const authRoutes = require('./routes/authRoutes');
 app.use(authRoutes);
-
+app.use(sessionMiddleware);
 // Rutas de servicios y API
 const servicioRoutes = require('./routes/servicioRoutes');
 const apiRoutes = require('./routes/apiRoutes');
@@ -140,6 +141,14 @@ cron.schedule('*/10 * * * *', async () => {
   } catch (error) {
       console.error('Error al intentar mantener el servidor activo:', error.message);
   }
+});
+
+app.use((req, res, next) => {
+  res.setHeader('Cache-Control', 'no-store, no-cache, must-revalidate, proxy-revalidate');
+  res.setHeader('Pragma', 'no-cache');
+  res.setHeader('Expires', '0');
+  res.setHeader('Surrogate-Control', 'no-store');
+  next();
 });
 
 // Iniciar el servidor

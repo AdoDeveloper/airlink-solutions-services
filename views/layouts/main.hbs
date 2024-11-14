@@ -31,6 +31,19 @@
 
     <!-- Main Content -->
     <main class="container mx-auto flex-grow mt-16">
+      <!-- Mensajes flash -->
+      {{#if success_msg}}
+        <div class="bg-green-500 text-white p-4 rounded-md mb-4">
+          <p>{{success_msg}}</p>
+        </div>
+      {{/if}}
+
+      {{#if error_msg}}
+        <div class="bg-red-500 text-white p-4 rounded-md mb-4">
+          <p>{{error_msg}}</p>
+        </div>
+      {{/if}}
+
       {{{body}}}
     </main>
 
